@@ -7,14 +7,26 @@ use Symfony\Component\HttpFoundation\File\File;
 class ImageService
 {
 
+    /**
+     * @var Hashids
+     */
     private $hash;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         $salt = env('APP_KEY');
         $this->hash = new Hashids($salt, 6);
     }
 
+    /**
+     * Save a file to the database.
+     *
+     * @param File $file
+     * @return string
+     */
     public function save(File $file)
     {
         $image = file_get_contents($file);
@@ -34,6 +46,12 @@ class ImageService
         }
     }
 
+    /**
+     * Grab a fullpath URL to an image.
+     *
+     * @param $id
+     * @return string
+     */
     private function url($id)
     {
         $id = $this->encode($id);
@@ -41,17 +59,14 @@ class ImageService
         return env('URL') . '/' . $id;
     }
 
+    /**
+     * Encode an ID to a HASH.
+     *
+     * @param $id
+     * @return string
+     */
     private function encode($id)
     {
         return $this->hash->encode($id);
-    }
-
-    private function decode($id)
-    {
-        if (is_numeric($id)) {
-            return $id;
-        }
-
-        return $this->hash->decode($id);
     }
 }

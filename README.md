@@ -1,7 +1,7 @@
 # duffleimg
 Quick image sharing program for ShareX
 
-**Inspired by starbs/yeh**
+*Inspired by starbs/yeh*
 
 ## Installation
 1. Upload/deploy on a server

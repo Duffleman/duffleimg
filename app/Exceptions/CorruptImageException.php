@@ -2,6 +2,7 @@
 
 use Exception;
 
-class CorruptImageException extends Exception {
+class CorruptImageException extends Exception
+{
 
-} 
+}

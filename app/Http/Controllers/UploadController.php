@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 class UploadController extends Controller
 {
 
+    /**
+     * Handles an incoming upload request.
+     *
+     * @param Request $request
+     * @return mixed
+     * @throws CorruptImageException
+     * @throws MissingImageException
+     */
     public function handle(Request $request)
     {
         if (!$request->hasFile('image')) {
