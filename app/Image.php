@@ -3,6 +3,7 @@
 use App\Exceptions\MissingImageException;
 use Hashids\Hashids;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class Image extends Model
 {
@@ -26,7 +27,7 @@ class Image extends Model
             $hashids = new Hashids($salt, 6);
             $id = $hashids->decode($hash)[0];
         } else {
-            $id = $hash;
+            throw new AccessDeniedException('You should not be accessing an image directly by its ID.');
         }
 
         $self = Image::find($id);
