@@ -11,7 +11,7 @@ class Image extends Model
 
     public static function getByHash($hash)
     {
-        $salt = env('SALT');
+        $salt = env('APP_KEY');
         $hashids = new Hashids($salt, 6);
         $id = $hashids->decode($hash)[0];
 

@@ -11,7 +11,7 @@ class ImageService
 
     public function __construct()
     {
-        $salt = env('SALT');
+        $salt = env('APP_KEY');
         $this->hash = new Hashids($salt, 6);
     }
 
