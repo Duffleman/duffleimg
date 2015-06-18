@@ -18,4 +18,4 @@ $app->get('/', function () use ($app) {
 });
 
 $app->post('/', 'UploadController@handle');
-$app->get('/{hash}', 'MainController@index');
+$app->get('{hash}', 'MainController@index');

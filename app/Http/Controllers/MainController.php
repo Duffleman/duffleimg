@@ -26,5 +26,7 @@ class MainController
         if (ends_with($hash, '.png')) {
             return substr($hash, 0, -4);
         }
+
+        return $hash;
     }
 }
