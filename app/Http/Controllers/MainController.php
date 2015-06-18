@@ -1,9 +1,24 @@
 <?php namespace App\Http\Controllers;
 
 use App\Image;
+use App\Services\HashService;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 class MainController
 {
+
+    /**
+     * @var HashService
+     */
+    private $hash;
+
+    /**
+     * @param HashService $hash
+     */
+    public function __construct(HashService $hash)
+    {
+        $this->hash = $hash;
+    }
 
     /**
      * Handles displaying an image on a request.
@@ -14,9 +29,14 @@ class MainController
      */
     public function index($hash)
     {
-        $hash = $this->stripExtension($hash);
+        if (is_numeric($hash)) {
+            throw new AccessDeniedException('You should not access an image by it\'s ID.');
+        }
 
-        $image = Image::getByHash($hash);
+        $hash = $this->stripExtension($hash);
+        $id = $this->hash->decode($hash);
+
+        $image = Image::find($id);
 
         return response($image->image, 200)->header('Content-Type', 'image/png');
     }

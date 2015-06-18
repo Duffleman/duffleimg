@@ -17,10 +17,9 @@ class ImageService
     /**
      * Constructor
      */
-    public function __construct()
+    public function __construct(HashService $hash)
     {
-        $salt = env('APP_KEY');
-        $this->hash = new Hashids($salt, 6);
+        $this->hash = $hash;
     }
 
     /**

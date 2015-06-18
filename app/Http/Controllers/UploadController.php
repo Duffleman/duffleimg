@@ -43,4 +43,4 @@ class UploadController extends Controller
             'url'     => $url
         ]);
     }
-} 
+}
