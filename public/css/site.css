@@ -1,12 +1,7 @@
-html, body {
-	height: 100%;
-}
 body {
 	color: white;
-	/*background-image: linear-gradient(to right, #fa709a 0%, #fee140 100%);*/
-	/*background-image: linear-gradient(to top, #30cfd0 0%, #330867 100%);*/
-	/*background-image: linear-gradient(120deg, #89f7fe 0%, #66a6ff 100%);*/
 	background-image: linear-gradient(180deg, #2af598 0%, #009efd 100%);
+	background-attachment: fixed;
 }
 .dropzone {
 	background: rgba(255, 255, 255, 0.3);
@@ -17,4 +12,7 @@ body {
 }
 .hidden {
 	display: none;
+}
+.screenshot {
+	height: 120px;
 }

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Image;
+use App\Exceptions;
 use Hashids\Hashids;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -13,6 +14,14 @@ class ImageService
      * @var Hashids
      */
     private $hash;
+
+    /**
+     * @var array
+     */
+    private $acceptedMimeTypes = [
+        'image/png',
+        'image/jpeg',
+    ];
 
     /**
      * Constructor
@@ -30,6 +39,10 @@ class ImageService
      */
     public function save(File $file)
     {
+        if (!in_array($file->getMimeType(), $this->acceptedMimeTypes)) {
+            throw new Exceptions\BadFormatException('unacceptable_mimetype');
+        }
+
         $image = file_get_contents($file);
         $hash = sha1($image);
 
@@ -42,9 +55,7 @@ class ImageService
         unset($image);
         unset($file);
 
-        if ($model) {
-            return $this->url($model->id);
-        }
+        return $this->url($model->id);
     }
 
     /**
