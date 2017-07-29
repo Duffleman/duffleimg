@@ -20,13 +20,13 @@ class UploadController extends Controller
     public function handle(Request $request)
     {
         if (!$request->hasFile('image')) {
-            throw new MissingImageException('You need to post `image` to this endpoint.');
+            throw new MissingImageException('no_image_provided');
         }
 
         $image = $request->file('image');
 
         if (!$image->isValid()) {
-            throw new CorruptImageException('This image is corrupt, try again.');
+            throw new CorruptImageException('image_corrupt');
         }
 
         $service = app('App\Services\ImageService');

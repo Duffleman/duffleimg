@@ -30,7 +30,7 @@ class MainController
     public function index($hash)
     {
         if (is_numeric($hash)) {
-            throw new AccessDeniedException('You should not access an image by it\'s ID.');
+            throw new AccessDeniedException('numeric_hash_found');
         }
 
         $hash = $this->stripExtension($hash);
