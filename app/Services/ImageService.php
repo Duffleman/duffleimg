@@ -16,14 +16,6 @@ class ImageService
     private $hash;
 
     /**
-     * @var array
-     */
-    private $acceptedMimeTypes = [
-        'image/png',
-        'image/jpeg',
-    ];
-
-    /**
      * Constructor
      */
     public function __construct(HashService $hash)
@@ -39,17 +31,17 @@ class ImageService
      */
     public function save(File $file)
     {
-        if (!in_array($file->getMimeType(), $this->acceptedMimeTypes)) {
-            throw new Exceptions\BadFormatException('unacceptable_mimetype');
-        }
-
         $image = file_get_contents($file);
         $hash = sha1($image);
 
         $model = Image::where('hash', $hash)->first();
 
         if (!$model) {
-            $model = Image::create(['hash' => $hash, 'image' => $image]);
+            $model = Image::create([
+                'hash' => $hash,
+                'image' => $image,
+                'mime' => $file->getMimeType(),
+            ]);
         }
 
         unset($image);

@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Image;
 use App\Services\HashService;
@@ -34,19 +36,26 @@ class MainController
         }
 
         $hash = $this->stripExtension($hash);
-        $id = $this->hash->decode($hash);
 
-        $image = Image::find($id);
+        $image = Image::where('label', $hash)->first();
 
-        return response($image->image, 200)->header('Content-Type', 'image/png');
+        if (!$image) {
+            $id = $this->hash->decode($hash);
+
+            $image = Image::find($id);
+        }
+
+        return response($image->image, 200)->header('Content-Type', $image->mime);
     }
 
     private function stripExtension($hash)
     {
-        if (ends_with($hash, '.png')) {
-            return substr($hash, 0, -4);
+        $m = preg_match('/^(\S+)\.+(png|jpg|jpeg)$/', $hash, $out);
+
+        if ($m === 0) {
+            return $hash;
         }
 
-        return $hash;
+        return $out[1];
     }
 }
