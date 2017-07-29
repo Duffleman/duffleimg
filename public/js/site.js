@@ -5,12 +5,7 @@ const myDropzone = new window.Dropzone('#mainDz');
 myDropzone.on('complete', (file) => {
 	const response = JSON.parse(file.xhr.response);
 
-	try {
-		copyTextToClipboard(response.url);
-	} catch (error) {
-		console.warn('cannot_copy');
-		console.warn(error);
-	}
+	copyTextToClipboard(response.url);
 });
 
 function copyTextToClipboard(text) {
@@ -26,6 +21,7 @@ function copyTextToClipboard(text) {
 	textArea.style.outline = 'none';
 	textArea.style.boxShadow = 'none';
 	textArea.style.background = 'transparent';
+
 	textArea.value = text;
 
 	document.body.appendChild(textArea);
@@ -33,7 +29,9 @@ function copyTextToClipboard(text) {
 	textArea.select();
 
 	try {
-		document.execCommand('copy');
+		const successful = document.execCommand('copy');
+
+		console.info(successful);
 	} catch (error) {
 		console.warn(error);
 	}
