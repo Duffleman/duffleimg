@@ -1,4 +1,7 @@
-# duffleimg
+# DEPRECATED IN FAVOUR OF [dflimg](https://github.com/Duffleman/dflimg)
+
+[dflimg](https://github.com/Duffleman/dflimg)
+
 Quick file sharing platform. Accepts images, text files, basic files.
 
 This is built on Laravel Lumen, so you need a server to host the images and the server will need to run PHP with some sort of database connection.
