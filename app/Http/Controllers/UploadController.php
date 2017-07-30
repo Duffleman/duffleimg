@@ -19,6 +19,8 @@ class UploadController extends Controller
      */
     public function handle(Request $request)
     {
+        $format = $request->format();
+
         if (!$request->hasFile('image')) {
             throw new MissingImageException('no_image_provided');
         }
@@ -34,6 +36,10 @@ class UploadController extends Controller
 
         $params = $request->all();
         if (isset($params['sharex'])) {
+            return $url;
+        }
+
+        if ($format === 'txt') {
             return $url;
         }
 
